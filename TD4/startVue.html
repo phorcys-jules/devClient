@@ -6,23 +6,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Js</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@next"></script>
+
 </head>
 
 <body>
     <div id='container'>
+        <h1>Partie 1</h1>
 
-        <h1>{{ message }}</h1>
+        <h2>{{ message }}</h2>
         <p :title='infoDate'>Vous pouvez passez votre souris sur ce texte</p>
         <input type="text" id='saisieTexte' v-model='inputValue'>
         <p>Vous avez entré : {{inputValue}}</p>
 
         <h3>Liste</h3>
         <ul>
-           <li v-for="name in absents">{{name}}</li> 
+            <li v-for="name in absents">{{name}}</li>
         </ul>
         <input type="text" id='saisieTexte' v-model='newName' @change="absents.push(newName)">
         <button @click="absents.push(newName)">Add</button>
+
+        <h2 :class="className">Couleur dynamique</h2>
+        <button @click="changeColor">Change color</button>
+
+        <div class="debug" :class="position">
+            <button class="topLeft" @click="move">Move</button>
+            <h2>Debuggage</h2>
+            <p>Affiche contenue d'une variable avec {{ moustache }}</p>
+            <p>Liste des noms : {{ absents }}</p>
+        </div>
+
+
+        <div>
+            <h1>Partie 2</h1>
+            <h2>Valeur calculée</h2>
+            <input type="text" v-model="name">
+            <input type="text" v-model="surName">
+            <p>Le résultat est : {{nomComplet}}</p>
+
+        </div>
 
     </div>
 
@@ -32,15 +55,71 @@
                 return {
                     message: "Ma première page avec Vue JS",
                     infoDate: "Vous consultez cette page le : "
-                    + new Date().toLocaleString(),
-                    inputValue:"Cecie est un texte",
-                    absents:["Bim",'Bam','Boom'],
-                    newName:"Entrez votre nom"
+                        + new Date().toLocaleString(),
+                    inputValue: "Cecie est un texte",
+                    absents: ["Bim", 'Bam', 'Boom'],
+                    newName: "Entrez votre nom",
+                    className: "red",
+                    moustache: "{{}}",
+                    name: "",
+                    surName: "",
+                    position: "bottomRight"
 
                 }
             },
             methods: {
-                lesMethodes() { console.log('coucou'); }
+                lesMethodes() { console.log('coucou'); },
+                changeColor() {
+                    switch (this.className) {
+                        case 'blue':
+                            this.className = 'white'
+                            break;
+                        case 'white':
+                            this.className = 'red'
+                            break;
+                        case 'red':
+                            this.className = 'blue'
+                            break;
+                    };
+                },
+                move() {
+                    switch (this.position) {
+                        case "topLeft":
+                            this.position = "topRight";
+                            break;
+                        case "topRight":
+                            this.position = "bottomLeft";
+
+                            break;
+                        case "bottomLeft":
+                            this.position = "bottomRight";
+
+                            break;
+                        case "bottomRight":
+                            this.position = "topLeft";
+
+                            break;
+                    }
+                }
+            },
+            computed: {
+                //Section ou on effectue les calculs à réaliser quand l'événement onDOMready est ok
+
+                /**
+                * Cette fonction doit retourner une valeur calculée à partir d'autres variables
+                * @param {string} name Nom 
+                * @param {string} surName Prénom
+                */
+                nomComplet() {
+                    return this.name + ' ' + this.surName;
+                }
+
+            },
+            mounted() {
+                var intervalId = window.setInterval(() => {
+                    this.changeColor();
+                }, 1000);
+
             }
         }
         Vue.createApp(MyVueApp).mount('#container');
