@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id='container'>
+
+        <h1>{{ message }}</h1>
+        <p :title='infoDate'>Vous pouvez passez votre souris sur ce texte</p>
+        <input type="text" id='saisieTexte' v-model='inputValue'>
+        <p>Vous avez entré : {{inputValue}}</p>
+
+        <h3>Liste</h3>
+        <ul>
+           <li v-for="name in absents">{{name}}</li> 
+        </ul>
+        <input type="text" id='saisieTexte' v-model='newName' @change="absents.push(newName)">
+        <button @click="absents.push(newName)">Add</button>
+
+    </div>
+
+    <script>
+        const MyVueApp = {
+            data() {
+                return {
+                    message: "Ma première page avec Vue JS",
+                    infoDate: "Vous consultez cette page le : "
+                    + new Date().toLocaleString(),
+                    inputValue:"Cecie est un texte",
+                    absents:["Bim",'Bam','Boom'],
+                    newName:"Entrez votre nom"
+
+                }
+            },
+            methods: {
+                lesMethodes() { console.log('coucou'); }
+            }
+        }
+        Vue.createApp(MyVueApp).mount('#container');
+    </script>
+</body>
+
+</html>
