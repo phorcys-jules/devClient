@@ -1,0 +1,3 @@
+Interet de Vue : on peut l'interegrer de manière très light
+		on peut aussi dev une appli complexe
+		

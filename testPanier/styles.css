@@ -1,0 +1,46 @@
+body{
+    font-family: Helvetica;
+    font-weight: 200;
+}
+#wrapper{
+    display: flex;
+    padding: 1em;
+}
+
+#products{
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product{
+    color: black;
+    width: 33%;
+}
+
+.card-img-top{
+    height: 225px;
+    width: 50%;
+    float: left;
+    position: relative;
+    left:25%;
+    margin-top: 5px;
+}
+.card-title{
+    height: 60px;
+}
+
+.card-text{
+    height: 150px;
+    overflow-y: scroll;
+}
+.card-text::-webkit-scrollbar
+{
+	width: .5rem;
+}
+
+.card-text::-webkit-scrollbar-thumb
+{
+	border-radius: .5rem;
+	background-color: #0f222d;
+}
