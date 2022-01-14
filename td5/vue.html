@@ -126,10 +126,8 @@
                     else {
                         res = this.experiments;
                     }
-                    console.log(res, this.onlyExpensives);
                     if (this.onlyExpensives) {
                         res = this.expensiveOnly(res);
-                        console.log(res);
                     }
                     return res;
                 },

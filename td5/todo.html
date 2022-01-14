@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id='container'>
+        <h1>Partie 5</h1>
+        <h2>{{ nomPartie }}</h2>
+
+
+
+        <h3>Liste des tâches</h3>
+        <ul>
+            
+            <li v-for="task in tasks" class='task' v-bind:class="{'completed' : task.done}" @click='task.done = !task.done; orderTask()'>{{task.name}}</li>
+        </ul>
+
+
+    </div>
+
+    </div>
+
+    <script>
+        const MyVueApp = {
+            data() {
+                return {
+                    nomPartie: "gerer liste de taches",
+                    tasks: [
+                        { name: 'Accelerateur 1', desc: 'description', done: false },
+                        { name: 'Observatoire 1', desc: 'description', done: true },
+                        { name: 'Violoniste dans le métro', desc: 'description', done: true },
+                        { name: 'Accelerateur 2', desc: 'description', done: false },
+                        { name: 'Detecteur de particules', desc: 'description', done: false },
+                        { name: 'Missions de ssauvetage des tortues ', desc: 'description', done: true },
+                        { name: 'Satelite Hubble', desc: 'description', done: false },
+                    ],
+
+                }
+            },
+            methods:{
+                orderTask(){
+                    console.log('order');
+                    let res = [];
+                    this.tasks.forEach(e => {
+                        if (e.done) {
+                            res.push(e);
+                        }
+                    });
+                    this.tasks.forEach(e => {
+                        if (!e.done) {
+                            res.push(e);
+                        }
+                    });
+                    this.tasks = res;
+                }
+
+            },
+            computed: {
+                //Section ou on effectue les calculs à réaliser quand l'événement onDOMready est ok
+                  
+
+
+
+            },
+            mounted() {
+                this.orderTask();
+            }
+        }
+        Vue.createApp(MyVueApp).mount('#container');
+    </script>
+</body>
+
+</html>

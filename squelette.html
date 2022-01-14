@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id='container'>
+        <h1>Partie 5</h1>
+        <h2>{{ nomPartie }}</h2>
+
+        <h2 :class="className">Afficher toutes les xp sauf Physique</h2>
+        <button @click="catToNotDisplay = 'Physique'">Physique</button>
+
+
+
+        <h3>Liste des expèriences</h3>
+        <ul v-if="displayPhysique">
+            <li v-for="xp in experiments">{{xp.name}} {{xp.cost}} M€ {{xp.field}}</li>
+        </ul>
+
+
+
+    </div>
+
+    </div>
+
+    <script>
+        const MyVueApp = {
+            data() {
+                return {
+                    experiments: [
+                        { name: 'Accelerateur 1', cost: 650, field: 'Physique' },
+                        { name: 'Observatoire 1', cost: 100, field: 'Biologie' },
+                        { name: 'Violoniste dans le métro', cost: 2, field: 'Psychologie' },
+                        { name: 'Accelerateur 2', cost: 35, field: 'Physique' },
+                        { name: 'Detecteur de particules', cost: 125, field: 'Physique' },
+                        { name: 'Missions de ssauvetage des tortues ', cost: 25, field: 'Biologie' },
+                        { name: 'Satelite Hubble', cost: 453, field: 'Physique' },
+                    ],
+
+                }
+            },
+            methods: {
+
+
+            },
+            //On dom content loaded
+            computed: {
+                //Section ou on effectue les calculs à réaliser quand l'événement onDOMready est ok
+
+
+
+
+            },
+            mounted() {
+
+            }
+        }
+        Vue.createApp(MyVueApp).mount('#container');
+    </script>
+</body>
+
+</html>

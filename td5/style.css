@@ -34,3 +34,13 @@
     bottom: 0%;
     right: 0%;
 }
+
+.task {
+    color : red;
+}
+.task:hover {
+    cursor: pointer;
+}
+.completed {
+    color : green;
+}
