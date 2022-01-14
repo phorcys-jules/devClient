@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id='container'>
+        <h1>Partie 5</h1>
+        <h2>{{ nomPartie }}</h2>
+
+        <h2 :class="className">Afficher toutes les xp sauf Physique</h2>
+        <button @click="catToNotDisplay = 'Physique'">Physique</button>
+
+        <h2 :class="className">Afficher toutes les xp sauf Biologie</h2>
+        <button @click="catToNotDisplay ='Biologie'">Biologie</button>
+
+        <h2 :class="className">Afficher les xp les plus chère uniquement</h2>
+        <button @click="onlyExpensives =  ! onlyExpensives">trier</button>
+
+        <h2 :class="className">Reset</h2>
+        <button @click="reset()">reset</button>
+
+
+        <h3>Liste des expèriences</h3>
+        <ul>
+            <li v-for="xp in displayXp">{{xp.name}} {{xp.cost}} M€ {{xp.field}}</li>
+        </ul>
+
+        <!--
+            <h3>Liste des expèriences</h3>
+        <ul v-if="displayPhysique">
+            <li v-for="xp in experiments">{{xp.name}} {{xp.cost}} M€ {{xp.field}}</li>
+        </ul>
+
+        <h3>Liste des expèriences sauf physique </h3>
+        <ul>
+            <li v-for="xp in filterEperimentsPhysics">{{xp.name}} {{xp.cost}} M€ {{xp.field}}</li>
+        </ul>
+
+        <h3>Liste des expèriences par catégorie</h3>
+        <ul>
+            <li v-for="xp in experiments">{{xp.field}}</li>
+        </ul>
+        -->
+
+    </div>
+
+    </div>
+
+    <script>
+        const MyVueApp = {
+            data() {
+                return {
+                    nomPartie: "Filter un tableau avec computed",
+                    experiments: [
+                        { name: 'Accelerateur 1', cost: 650, field: 'Physique' },
+                        { name: 'Observatoire 1', cost: 100, field: 'Biologie' },
+                        { name: 'Violoniste dans le métro', cost: 2, field: 'Psychologie' },
+                        { name: 'Accelerateur 2', cost: 35, field: 'Physique' },
+                        { name: 'Detecteur de particules', cost: 125, field: 'Physique' },
+                        { name: 'Missions de ssauvetage des tortues ', cost: 25, field: 'Biologie' },
+                        { name: 'Satelite Hubble', cost: 453, field: 'Physique' },
+                    ],
+                    catToNotDisplay: false,
+                    onlyExpensives: false,
+
+                }
+            },
+            methods: {
+
+                /**
+                 * filtre
+                 */
+                nonPhysic(list) {
+                    return list.filter(
+                        exp => exp.field !== 'Physique');
+                },
+                ofCat(list, cat) {
+                    return list.filter(
+                        exp => exp.field === cat);
+                },
+                exeptCat(list, cat) {
+                    return list.filter(
+                        exp => exp.field !== cat);
+                },
+                expensiveOnly(list) {
+                    return list.filter(
+                        exp => exp.cost > 100);
+                },
+                reset() {
+                    this.onlyExpensives = false,
+                        this.catToNotDisplay = false
+                },
+
+
+            },
+            //On dom content loaded
+            computed: {
+                //Section ou on effectue les calculs à réaliser quand l'événement onDOMready est ok
+
+                /**
+                * Cette fonction doit retourner une valeur calculée à partir d'autres variables
+                * @param {string} name Nom 
+                * @param {string} surName Prénom
+                */
+                nomComplet() {
+                    return this.name + ' ' + this.surName;
+                },
+
+                filterEperimentsPhysics() {
+                    return this.nonPhysic(this.experiments);
+                },
+                displayXp() {
+                    let res;
+                    if (this.catToNotDisplay) {
+                        res = this.exeptCat(this.experiments, this.catToNotDisplay);
+                    }
+                    else {
+                        res = this.experiments;
+                    }
+                    console.log(res, this.onlyExpensives);
+                    if (this.onlyExpensives) {
+                        res = this.expensiveOnly(res);
+                        console.log(res);
+                    }
+                    return res;
+                },
+
+
+            },
+            mounted() {
+                var intervalId = window.setInterval(() => {
+                    //this.changeColor();
+                }, 1000);
+
+            }
+        }
+        Vue.createApp(MyVueApp).mount('#container');
+    </script>
+</body>
+
+</html>
