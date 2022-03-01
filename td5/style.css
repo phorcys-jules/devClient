@@ -44,3 +44,6 @@
 .completed {
     color : green;
 }
+table {
+    border: 2;
+}

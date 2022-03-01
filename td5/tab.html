@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+    <div id='container'>
+        <h1>Partie 5</h1>
+        <h2>{{ nomPartie }}</h2>
+
+        <table border=2>
+            <thead>
+                <tr>
+                    <th>Pays</th>
+                    <th v-if="trieCroissant" @click="trieCroissant = ! trieCroissant; order">Nombre de mobiles &#9650;</th>
+                    <th v-if="! trieCroissant" @click="trieCroissant = ! trieCroissant; order">Nombre de mobiles &#9660;</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr v-for="stat in stats">
+                    <td>{{stat.pays}}</td>
+                    <td>{{stat.nb}} Millions</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+    </div>
+
+    <script>
+        const MyVueApp = {
+            data() {
+                return {
+                    nomPartie: "Tableau",
+                    stats: [
+                        { pays: 'a', nb: 3 },
+                        { pays: 'b', nb: 12 },
+                        { pays: 'c', nb: 5 },
+                        { pays: 'ab', nb: 7 },
+                        { pays: 'd', nb: 89 },
+                        { pays: 'e', nb: 9 },
+                        { pays: 'f', nb: 12 },
+                    ],
+                    trieCroissant : false,
+
+                }
+            },
+            methods:{
+                orderStats(){
+                    console.log('order');
+                    if (this.trieCroissant) {
+                        this.stats = this.stats.sort(function(a, b) {
+                            return (b.nb - a.nb);
+                        });
+                    }
+                    else {
+                        this.stats = this.stats.sort(function(a, b) {
+                            return (a.nb - b.nb);
+                        });
+                    }
+                    
+                }
+
+            },
+            computed: {
+                order(){
+                    this.orderStats();
+                }
+            },
+            mounted() {
+                this.orderStats();
+            }
+        }
+        Vue.createApp(MyVueApp).mount('#container');
+    </script>
+</body>
+
+</html>
